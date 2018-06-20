@@ -1,8 +1,9 @@
 ## Learning Node properly
 
-• Addition details to be determined
+• Addition details to be determined    
+• [Reference](http://www.hylianux.com/downloads/nodebeginner.pdf)    
 
-### June 18 - WIP
+### June 18 - WIP (Ended at Page 40)
 • `index.js` is ran via node    
 • Importing `server.js`, `router.js`, and `requestHandlers.js`    
 • The `requestHandlers` functions are stored as values of an object called `handle` in `index.js`    
@@ -13,7 +14,7 @@
 
 - So in summary, the application layer is `request handler` --> `router` --> `server`    
 
-### June 20 - WIP
+### June 20 - WIP (Ended at Page 49)
 • We are now introducing non-blocking operations    
 • We are using a node module called `child_process`, which takes in an arguments for a shell command as well as options and a callback function    
 • This allows asynchronous executions to operate such that non-blocking processes take place    
