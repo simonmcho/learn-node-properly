@@ -6,6 +6,7 @@ const handle = {};
 handle['/'] = requestHandlers.start;
 handle['/start'] = requestHandlers.start;
 handle['/upload'] = requestHandlers.upload;
+handle['/longStart'] = requestHandlers.longStart;
 
 server.start(router.route, handle);
 

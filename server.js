@@ -13,14 +13,12 @@ function start(route, handle) {
 
         const pathname = url.parse(request.url).pathname;
         console.log('request for ' + pathname + ' received.');
-
-        response.writeHead(200, {'Content-Type': 'text/plain'});
         
-        const content = route(handle, pathname);
+        route(handle, pathname, response);
 
-        response.write(content);
-        response.end();
-
+        // const content = route(handle, pathname);
+        // response.write(content);
+        // response.end();
     }
 
     http.createServer(onRequest).listen(8888);
@@ -57,7 +55,6 @@ function start(route, handle) {
     //     // It looks for about.ejs. THis is done because we set the view engine to ejs
     // });
 
-    //app.listen(8888, ()=> { console.log("App running on port 3000!")}); // bind this node app to our machine
 }
 
 module.exports.start = start;
