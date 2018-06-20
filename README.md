@@ -14,7 +14,7 @@
 
 - So in summary, the application layer is `request handler` --> `router` --> `server`    
 
-### June 20 - WIP (Ended at Page 49)
+### June 20A - WIP (Ended at Page 49)
 • We are now introducing non-blocking operations    
 • We are using a node module called `child_process`, which takes in an arguments for a shell command as well as options and a callback function    
 • This allows asynchronous executions to operate such that non-blocking processes take place    
@@ -23,3 +23,10 @@
 • Based on the condition of the url `pathname`, `route` will return the appropriate function, as usual    
 • The `requestHandler`'s appropriate function now executes, where the async executions occur    
 • Remember, node is single-threaded, so it when it is executing something, that execution needs to be complete before it moves on to the next execution    
+
+### June 20B - WIP (Ended at Page 58)    
+• We have added a `POST` operation.    
+• The server deals with the request by adding listeners to the `request` object    
+• Within these listeners, we execute code so that the router can handle the data that comes in    
+• `router.route` now takes in one more argument, the data from the request, and it passes that on to the `requestHandler`'s functions    
+• The `requestHandler.upload` deals with the data by parsing it and printing it out to the DOM    

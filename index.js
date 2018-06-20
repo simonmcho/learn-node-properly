@@ -7,6 +7,7 @@ handle['/'] = requestHandlers.start;
 handle['/start'] = requestHandlers.start;
 handle['/upload'] = requestHandlers.upload;
 handle['/longStart'] = requestHandlers.longStart;
+handle['/postForm'] = requestHandlers.postForm;
 
 server.start(router.route, handle);
 
