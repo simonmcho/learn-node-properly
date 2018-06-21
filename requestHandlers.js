@@ -1,8 +1,9 @@
 const exec = require('child_process').exec;
 const querystring = require('querystring'),
-    fs = require('fs');
+    fs = require('fs'),
+    formidable = require('formidable');
 
-function start(response, postData = '') {
+function start(response) {
     console.log('Request handler start() was called');
     let content = "empty";
 
@@ -20,7 +21,7 @@ function start(response, postData = '') {
 
 }
 
-function longStart(response, postData = '') {
+function longStart(response) {
     console.log('Request handler longStart() was called');
 
     const timeoutObject = { 
@@ -38,7 +39,7 @@ function longStart(response, postData = '') {
 
 }
 
-function postForm(response, postData = '') {
+function postForm(response) {
     console.log("Request handler 'postForm' was called");
 
     const body =
@@ -61,22 +62,49 @@ function postForm(response, postData = '') {
 
 }
 
-function upload(response, postData = '') {
+function upload(response, request) {
     console.log('Request handler upload() was called');
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    console.log(response);
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    console.log(postData);
-    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+
+    const form = new formidable.IncomingForm();
+    console.log(">>>>>>>>>>>>>>>> ABOUT TO PARSE");
+
+    form.parse(request, (error, fields, files) => {
+
+        // For Windows renaming condition
+        fs.rename(files.upload.path, '/tmp/test.png', error => {
+
+            if (error) {
+                console.log("!!!!!!!!!!!!!!!!!!!!!!!!");
+                console.log(error);
+                fs.unlink('/tmp/test.png');
+                fs.rename(files.upload.path, 'tmp/test.png');
+
+            }
+
+        });
+
+        response.writeHead(200, {"Content-Type": "text/html"});
+        response.write("Received Image:<br />");
+        response.write("<img src='/show' />");
+        response.end();
+
+    });
+
     
-    const queriedText = querystring.parse(postData).text;
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.write(`Uploaded! You've set ${queriedText}`);
-    response.end();
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    // console.log(response);
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    // console.log(postData);
+    // console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    
+    // const queriedText = querystring.parse(postData).text;
+    // response.writeHead(200, {"Content-Type": "text/plain"});
+    // response.write(`Uploaded! You've set ${queriedText}`);
+    // response.end();
     //return "Hello upload!";
 }
 
-function postImage(response, postData) {
+function postImage(response) {
     console.log("Request handler 'postimage' was called.");
 
     const body = 
@@ -100,7 +128,7 @@ function postImage(response, postData) {
 
 }
 
-function show(response, postData ='') {
+function show(response) {
     console.log('Request handler "show" was called');
 
     fs.readFile('/tmp/test.png', 'binary', (error, file) => {

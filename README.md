@@ -30,3 +30,8 @@
 • Within these listeners, we execute code so that the router can handle the data that comes in    
 • `router.route` now takes in one more argument, the data from the request, and it passes that on to the `requestHandler`'s functions    
 • The `requestHandler.upload` deals with the data by parsing it and printing it out to the DOM    
+
+### June 20C - FINISHED    
+• We have added the functionality to upload Images and show them on the browser    
+• Using `formidable` module to deal with parsing the data    
+• The `/show` url does the reading of the file stored in `/tmp`    

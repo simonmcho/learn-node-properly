@@ -11,25 +11,32 @@ function start(route, handle) {
 
     function onRequest(request, response) {
 
-        let postData = '';
         const pathname = url.parse(request.url).pathname;
         console.log('Request for ' + pathname + ' received.');
 
-        request.setEncoding('utf8');
+        route(handle, pathname, response, request);
 
-        request.addListener('data', postDataChunk => {
 
-            postData += postDataChunk;
-            console.log("Received POST data chunk " + postDataChunk + "'.");
+        ////////////////////////////////////////////////////////////////
+        // let postData = '';
+        // const pathname = url.parse(request.url).pathname;
+        // console.log('Request for ' + pathname + ' received.');
 
-        });
+        // request.setEncoding('utf8');
 
-        request.addListener('end', () => {
+        // request.addListener('data', postDataChunk => {
 
-            route(handle, pathname, response, postData);
+        //     postData += postDataChunk;
+        //     console.log("Received POST data chunk " + postDataChunk + "'.");
 
-        });
+        // });
 
+        // request.addListener('end', () => {
+
+        //     route(handle, pathname, response, postData);
+
+        // });
+        ////////////////////////////////////////////////////////////////
         // const pathname = url.parse(request.url).pathname;
         // route(handle, pathname, response);
         ////////////////////////////////
